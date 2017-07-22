@@ -1,0 +1,25 @@
+{
+  "name": "tosystemd",
+  "version": "1.0.0",
+  "description": "😍 A SystemD config generators for NodeJS projects",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidgatti/toSystemD"
+  },
+  "bin": {
+    "tosystemd": "./index.js"
+  },
+  "keywords": [
+    "systemd",
+    "service",
+    "cli",
+    "david gatti"
+  ],
+  "author": {
+    "name": "David Gatti",
+    "email": "npm@gatti.pl",
+    "url": "https://github.com/davidgatti"
+  },
+  "license": "MIT"
+}
