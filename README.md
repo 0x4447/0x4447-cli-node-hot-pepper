@@ -4,10 +4,34 @@ If you work with NodeJS projects and prefer to run them on a Linux box using Sys
 
 # How to run
 
-Run the `tosystemd` command in the directory where you project is located, and in the end you'll get a new file with the correct SystemD configuration.
+Run the `tosystemd` command in the directory where you project is located, and in the end you'll get a new file with the correct SystemD configuration, for example:
+
+```
+[Unit]
+Description=example.com
+Documentation=https://github.com/user/example.com
+After=network.target
+
+[Service]
+EnvironmentFile=/home/admin/example.com/.env
+Type=simple
+User=admin
+Group=admin
+WorkingDirectory=/home/admin/example.com/david.gatti.pl
+ExecStart=/usr/bin/node bin/server
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=example.com
+Restart=on-failure
+RestartSec=3
+KillMode=process
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+```
 
 This App will also output all the commands that you need to run to make the service working.
-
 
 # The End
 
