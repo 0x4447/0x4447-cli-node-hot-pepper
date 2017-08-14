@@ -314,6 +314,11 @@ function save_the_file(container)
 			console.log("\tService Saved");
 			console.log("");
 
+			//
+			//	-> Move to the next chain
+			//
+			return resolve(container);
+
 		});
 
 	});
