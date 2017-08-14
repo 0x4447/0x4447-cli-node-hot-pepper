@@ -2,7 +2,6 @@
 
 let fs = require('fs');
 let os = require('os');
-let term = require('terminal-kit').terminal;
 let exec = require('child_process').exec;
 
 //
@@ -67,11 +66,11 @@ check_if_we_are_root(container)
 		//
 		//	1.	Let the user know all went well
 		//
-		term("\n");
-		term("\n");
-		term.green("\tService Added.");
-		term("\n");
-		term("\n");
+		console.log("\n");
+		console.log("\n");
+		console.log("\tService Added.");
+		console.log("\n");
+		console.log("\n");
 
 		//
 		//	->	Exit the app
@@ -83,10 +82,10 @@ check_if_we_are_root(container)
 		//
 		//	1.	Show the error message
 		//
-		term.red("\n");
-		term.red("\t" + error.message);
-		term.red("\n");
-		term.red("\n");
+		console.log("\n");
+		console.log("\t" + error.message);
+		console.log("\n");
+		console.log("\n");
 
 		//
 		//	-> Exit the app
