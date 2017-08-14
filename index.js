@@ -62,8 +62,8 @@ fs.readFile('package.json', 'utf8', function(err, data) {
 	file.push("Group=" + user);
 	file.push("WorkingDirectory=" + cwd);
 	file.push("ExecStart=/usr/bin/node workers/server");
-	file.push("StandardOutput=syslog");
-	file.push("StandardError=syslog");
+	file.push("StandardOutput=journal");
+	file.push("StandardError=journal");
 	file.push("SyslogIdentifier=" + parsed.name);
 	file.push("Restart=on-failure");
 	file.push("RestartSec=3");
