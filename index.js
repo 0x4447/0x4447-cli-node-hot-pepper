@@ -173,14 +173,14 @@ function read_necessary_data(container)
 		//
 		//	Open the app.json file.
 		//
-		fs.readFile('package.json', 'utf8', function(err, data) {
+		fs.readFile('package.json', 'utf8', function(error, data) {
 
 			//
 			//	1.	Display Error if any
 			//
 			if(error)
 			{
-				 console.log(err.message)
+				return reject(new Error(error.message));
 			}
 
 			//
@@ -303,7 +303,7 @@ function save_the_file(container)
 			//
 			if(error)
 			{
-				console.log(error.message);
+				return reject(new Error(error.message));
 			}
 
 			//
