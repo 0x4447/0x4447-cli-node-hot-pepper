@@ -56,7 +56,7 @@ fs.readFile('package.json', 'utf8', function(err, data) {
 	file.push("");
 
 	file.push("[Service]");
-	file.push("EnvironmentFile=" + cwd + "/.emv");
+	file.push("EnvironmentFile=" + cwd + "/.env");
 	file.push("Type=simple");
 	file.push("User=" + user);
 	file.push("Group=" + user);
