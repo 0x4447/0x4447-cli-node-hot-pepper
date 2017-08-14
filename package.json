@@ -21,5 +21,8 @@
     "email": "npm@gatti.pl",
     "url": "https://github.com/davidgatti"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+      "terminal-kit": "1.11.1"
+    }
 }

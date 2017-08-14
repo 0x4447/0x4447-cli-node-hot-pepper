@@ -2,6 +2,8 @@
 
 let fs = require('fs');
 let os = require('os');
+let term = require('terminal-kit').terminal;
+let exec = require('child_process').exec;
 
 //
 //
