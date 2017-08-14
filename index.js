@@ -245,7 +245,7 @@ function create_the_service_file(container)
 		file.push("Type=simple");
 		file.push("User=" + container.service_data.user);
 		file.push("Group=" + container.service_data.user);
-		file.push("WorkingDirectory=" + cwd);
+		file.push("WorkingDirectory=" + container.service_data.cwd);
 		file.push("ExecStart=/usr/bin/node workers/server");
 		file.push("StandardOutput=journal");
 		file.push("StandardError=journal");
