@@ -3,118 +3,415 @@
 let fs = require('fs');
 let os = require('os');
 
+check_if_we_are_root(container)
+	.then(function(container){
+
+		//
+		//	1.	Make sure systemD is present
+		//
+		return check_if_systemd_is_present(container);
+
+	}).then(function(container){
+
+		//
+		//	1.	Generate the file
+		//
+		return read_necessary_data(container);
+
+	}).then(function(container){
+
+		//
+		//	1.	Generate the file
+		//
+		return create_the_service_file(container);
+
+	}).then(function(container){
+
+		//
+		//	1.	Save the file
+		//
+		return save_the_file(container);
+
+	}).then(function(container){
+
+		//
+		//	1.	Restart systemD
+		//
+		return reaload_systemd_daemon(container);
+
+	}).then(function(container){
+
+		//
+		//	1.	Restart systemD
+		//
+		return start_the_new_service(container);
+
+	}).then(function(container){
+
+		//
+		//	1.	Restart systemD
+		//
+		return enable_autostart(container);
+
+	}).then(function(container){
+
+		//
+		//	1.	Let the user know all went well
+		//
+		term("\n");
+		term("\n");
+		term.green("\tService Added.");
+		term("\n");
+		term("\n");
+
+		//
+		//	->	Exit the app
+		//
+		process.exit(0);
+
+	}).catch(function(error){
+
+		//
+		//	1.	Show the error message
+		//
+		term.red("\n");
+		term.red("\t" + error.message);
+		term.red("\n");
+		term.red("\n");
+
+		//
+		//	-> Exit the app
+		//
+		process.exit(0);
+
+	});
+
+//	 _____    _____     ____    __  __   _____    _____   ______    _____
+//	|  __ \  |  __ \   / __ \  |  \/  | |_   _|  / ____| |  ____|  / ____|
+//	| |__) | | |__) | | |  | | | \  / |   | |   | (___   | |__    | (___
+//	|  ___/  |  _  /  | |  | | | |\/| |   | |    \___ \  |  __|    \___ \
+//	| |      | | \ \  | |__| | | |  | |  _| |_   ____) | | |____   ____) |
+//	|_|      |_|  \_\  \____/  |_|  |_| |_____| |_____/  |______| |_____/
 //
-//	Check if the SystemD directory exists
-//
-let is_systemd = fs.existsSync("/etc/systemd/system");
 
 //
-//	Warn the user that the directory is not present
+//	Before we do anything we need to make sure this app is running as root.
 //
-if(!is_systemd)
+//	We need root to be able to:
+//
+//	- save the file in to the Nginx directory
+//	- Restart Nginx
+//
+function check_if_we_are_root(container)
 {
-	return console.log("SystemD directory not found")
+	return new Promise(function(resolve, reject) {
+
+		//
+		//	1.	Check if the SystemD directory exists
+		//
+		let username = os.userInfo().username;
+
+		//
+		//	2.	Warn the user that the directory is not present
+		//
+		if(username != "root")
+		{
+			return reject(new Error("Run the command as root"));
+		}
+
+		//
+		//	-> Move to the next chain
+		//
+		return resolve(container);
+
+	});
 }
 
 //
-//	Open the app.json file.
+//	Make sure the systemD folder exists and is preset so we can save our
+//	config file
 //
-fs.readFile('package.json', 'utf8', function(err, data) {
-
-	//
-	//	1.	Display Error if any
-	//
-	err && console.log(err.message)
-
-	//
-	//	2.	Convert the content of the file in to a JS Object
-	//
-	let parsed = JSON.parse(data);
-
-	//
-	//	3.	Get all the necessary data
-	//
-	let description = parsed.name;
-	let documentation = parsed.repository.url;
-	let cwd = process.cwd();
-	let user = os.userInfo().username;
-
-	//
-	//	4.	An array where I'm going to store the whole file before saving it
-	//
-	let file = [];
-
-	//
-	//	5.	Add data to the array, which in the end will be used to create
-	//		the .service file
-	//
-	file.push("[Unit]");
-	file.push("Description=" + description);
-	file.push("Documentation=" + documentation);
-	file.push("After=network.target");
-
-	file.push("");
-
-	file.push("[Service]");
-	file.push("EnvironmentFile=" + cwd + "/.env");
-	file.push("Type=simple");
-	file.push("User=" + user);
-	file.push("Group=" + user);
-	file.push("WorkingDirectory=" + cwd);
-	file.push("ExecStart=/usr/bin/node workers/server");
-	file.push("StandardOutput=journal");
-	file.push("StandardError=journal");
-	file.push("SyslogIdentifier=" + parsed.name);
-	file.push("Restart=on-failure");
-	file.push("RestartSec=3");
-	file.push("KillMode=process");
-	file.push("ExecReload=/bin/kill -HUP $MAINPID");
-
-	file.push("");
-
-	file.push("[Install]");
-	file.push("WantedBy=multi-user.target");
-
-	//
-	//	Join each element of the array in to one big file where each element
-	//	is in its own line
-	//
-	let service_file = file.join("\n");
-
-	//
-	//	6.	Save the data in to the .env file.
-	//
-	fs.writeFile(parsed.name + ".service", service_file, (error) => {
+function check_if_systemd_is_present(container)
+{
+	return new Promise(function(resolve, reject) {
 
 		//
-		//	1.	Display Error if any
+		//	1.	Check if the SystemD directory exists
 		//
-		if(error)
+		let is_systemd = fs.existsSync("/etc/systemd/system");
+
+		//
+		//	2.	Warn the user that the directory is not present
+		//
+		if(!is_systemd)
 		{
-			console.log(error.message);
+			return reject(new Error("SystemD directory not found"));
 		}
 
-		console.log("");
+		//
+		//	-> Move to the next chain
+		//
+		return resolve(container);
+
+	});
+}
+
+//
+//	After we have all the data we can create the config file for the site.
+//
+function read_necessary_data(container)
+{
+	return new Promise(function(resolve, reject) {
 
 		//
-		//	Show the user what happened
+		//	Open the app.json file.
 		//
-		console.log("\tThe Service file was created.");
+		fs.readFile('package.json', 'utf8', function(err, data) {
 
-		console.log("");
+			//
+			//	1.	Display Error if any
+			//
+			if(error)
+			{
+				 console.log(err.message)
+			}
+
+			//
+			//	2.	Convert the content of the file in to a JS Object
+			//
+			let parsed = JSON.parse(data);
+
+			//
+			//	3.	Get all the necessary data
+			//
+			let description = parsed.name;
+			let documentation = parsed.repository.url;
+			let cwd = process.cwd();
+			let user = os.userInfo().username;
+
+			//
+			//	4.	Save the file in to memory
+			//
+			container.service_data = {
+				name: description,
+				description,
+				documentation,
+				cwd,
+				user
+			}
+
+			//
+			//	-> Move to the next chain
+			//
+			return resolve(container);
+
+		});
+	});
+}
+
+//
+//	After we have all the data we can create the config file for the site.
+//
+function create_the_service_file(container)
+{
+	return new Promise(function(resolve, reject) {
 
 		//
-		//	Tell the user what to do next
+		//	1.	An array where I'm going to store the whole file before saving it
 		//
-		console.log("\t1. sudo cp " + parsed.name + ".service /etc/systemd/system");
-		console.log("\t2. sudo systemctl daemon-reload");
-		console.log("\t3. sudo systemctl start " + parsed.name);
-		console.log("\t4. sudo systemctl enable " + parsed.name);
+		let file = [];
 
-		console.log("");
+		//
+		//	2.	Add data to the array, which in the end will be used to create
+		//		the .service file
+		//
+		file.push("[Unit]");
+		file.push("Description=" + container.service_data.description);
+		file.push("Documentation=" + container.service_data.documentation);
+		file.push("After=network.target");
+
+		file.push("");
+
+		file.push("[Service]");
+		file.push("EnvironmentFile=" + container.service_data.cwd + "/.env");
+		file.push("Type=simple");
+		file.push("User=" + container.service_data.user);
+		file.push("Group=" + container.service_data.user);
+		file.push("WorkingDirectory=" + cwd);
+		file.push("ExecStart=/usr/bin/node workers/server");
+		file.push("StandardOutput=journal");
+		file.push("StandardError=journal");
+		file.push("SyslogIdentifier=" + container.service_data.name);
+		file.push("Restart=on-failure");
+		file.push("RestartSec=3");
+		file.push("KillMode=process");
+		file.push("ExecReload=/bin/kill -HUP $MAINPID");
+
+		file.push("");
+
+		file.push("[Install]");
+		file.push("WantedBy=multi-user.target");
+
+		//
+		//	Join each element of the array in to one big file where each element
+		//	is in its own line
+		//
+		let service_file = file.join("\n");
+
+		//
+		//	4.	Save the file in to memory
+		//
+		container.service_file = service_file;
+
+		//
+		//	-> Move to the next chain
+		//
+		return resolve(container);
+
 	});
 
-});
+}
 
+//
+//	Save the config file in the right place
+//
+function save_the_file(container)
+{
+	return new Promise(function(resolve, reject) {
 
+		//
+		//	1.
+		//
+		let file = "/etc/systemd/system/"
+				   + container.service_data.name
+				   + ".service";
 
+		//
+		//	2.	Save the service file
+		//
+		fs.writeFile(file, container.service_file, function(error) {
+
+			//
+			//	1.	Display Error if any
+			//
+			if(error)
+			{
+				console.log(error.message);
+			}
+
+			//
+			//	Show the user what happened
+			//
+			console.log("");
+			console.log("\tService Saved");
+			console.log("");
+
+		});
+
+	});
+}
+
+//
+//	Restart Nginx so we can start using our site.
+//
+function reaload_systemd_daemon(container)
+{
+	return new Promise(function(resolve, reject) {
+
+		//
+		//	1.
+		//
+		let cmd = 'systemctl daemon-reload';
+
+		//
+		//	2.	Execute the command that will restart Nginx server
+		//
+		exec(cmd, function(error, stdout, stderr) {
+
+			//
+			//	1.	Make sure we show any error
+			//
+			if(error)
+			{
+				return reject(new Error(error))
+			}
+
+			//
+			//	-> Move to the next chain
+			//
+			return resolve(container);
+
+		});
+
+	});
+}
+
+//
+//	Restart Nginx so we can start using our site.
+//
+function start_the_new_service(container)
+{
+	return new Promise(function(resolve, reject) {
+
+		//
+		//	1.
+		//
+		let cmd = 'systemctl start ' + container.service_data.name;
+
+		//
+		//	2.	Execute the command that will restart Nginx server
+		//
+		exec(cmd, function(error, stdout, stderr) {
+
+			//
+			//	1.	Make sure we show any error
+			//
+			if(error)
+			{
+				return reject(new Error(error))
+			}
+
+			//
+			//	-> Move to the next chain
+			//
+			return resolve(container);
+
+		});
+
+	});
+}
+
+//
+//	Restart Nginx so we can start using our site.
+//
+function enable_autostart(container)
+{
+	return new Promise(function(resolve, reject) {
+
+		//
+		//	1.
+		//
+		let cmd = 'systemctl enable ' + container.service_data.name;
+
+		//
+		//	2.	Execute the command that will restart Nginx server
+		//
+		exec(cmd, function(error, stdout, stderr) {
+
+			//
+			//	1.	Make sure we show any error
+			//
+			if(error)
+			{
+				return reject(new Error(error))
+			}
+
+			//
+			//	-> Move to the next chain
+			//
+			return resolve(container);
+
+		});
+
+	});
+}
