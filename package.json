@@ -1,6 +1,6 @@
 {
   "name": "tosystemd",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "😍 A SystemD config generators for NodeJS projects",
   "main": "index.js",
   "repository": {
@@ -23,6 +23,6 @@
   },
   "license": "MIT",
   "dependencies": {
-      "terminal-kit": "1.11.1"
-    }
+    "terminal-kit": "1.11.1"
+  }
 }
