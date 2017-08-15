@@ -38,14 +38,14 @@ check_if_we_are_root(container)
 	}).then(function(container){
 
 		//
-		//	1.	Gather all the necessary data from the project
+		//	1.	Check if the package.json had all the data
 		//
 		return check_if_something_is_missing(container);
 
 	}).then(function(container){
 
 		//
-		//	1.	Gather all the necessary data from the project
+		//	1.	Get data that we need from the system
 		//
 		return get_os_settings(container);
 
@@ -241,11 +241,14 @@ function read_necessary_data(container)
 			//
 			let parsed = JSON.parse(data);
 
+			//
+			//	3.	Prepare the variables that will hold the data
+			//
 			let description = "";
 			let documentation = "";
 
 			//
-			//	3.	Make sure the name is present
+			//	4.	Get the name if it is possible
 			//
 			if(parsed.name)
 			{
@@ -253,7 +256,7 @@ function read_necessary_data(container)
 			}
 
 			//
-			//	4.	Make sure the repo is present
+			//	5.	Get the repo URL if possible
 			//
 			if(parsed.repository)
 			{
@@ -267,7 +270,7 @@ function read_necessary_data(container)
 			}
 
 			//
-			//	4.	Save the file in to memory
+			//	6.	Add the data to the container
 			//
 			container.service_data = {
 				name: description,
@@ -285,12 +288,15 @@ function read_necessary_data(container)
 }
 
 //
-//	Make sure package.json file exists
+//	Generate the right error if something is missing
 //
 function check_if_something_is_missing(container)
 {
 	return new Promise(function(resolve, reject) {
 
+		//
+		//	1.	Crate the array that will hold all the errors
+		//
 		let errors = [];
 
 		if(!container.service_data.name)
@@ -308,10 +314,19 @@ function check_if_something_is_missing(container)
 			errors.push(new Error("Repo URL is missing"));
 		}
 
+		//
+		//	2.	Check if we got some errors
+		//
 		if(errors.length > 0)
 		{
+			//
+			//	1.	Combine all the errors in to one string
+			//
 			let error_message = errors.join("\n");
 
+			//
+			//	->	Stop everything and let the user know what is missing
+			//
 			return reject(new Error(error_message));
 		}
 
@@ -324,7 +339,7 @@ function check_if_something_is_missing(container)
 }
 
 //
-//	Make sure package.json file exists
+//	Get OS specific settings
 //
 function get_os_settings(container)
 {
