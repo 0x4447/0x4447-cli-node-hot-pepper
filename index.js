@@ -35,7 +35,7 @@ check_if_we_are_root(container)
 		//
 		return read_necessary_data(container);
 
-	})..then(function(container){
+	}).then(function(container){
 
 		//
 		//	1.	Gather all the necessary data from the project
