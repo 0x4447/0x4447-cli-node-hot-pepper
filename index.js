@@ -311,7 +311,7 @@ function check_if_something_is_missing(container)
 
 		if(errors.length > 0)
 		{
-			let error_message = errors.join(" ");
+			let error_message = errors.join("\n");
 
 			return reject(new Error(error_message));
 		}
