@@ -1,10 +1,17 @@
 # toSystemD
 
-If you work with NodeJS projects and prefer to run them on a Linux box using SystemD as the process manager. Then this small project will help you save time by creating the .service file for you based on the content of the `package.json` file and the location in which the CLI was executed.
+If you work with NodeJS projects and prefer to run them on a Linux box using SystemD as the process manager. Then this small project will help you save a lot of time by creating the `.service` file for you, based on the content of the `package.json` file and the location in which the CLI was executed.
 
 # How to run
 
-Run the `tosystemd` command in the directory where you project is located, and in the end you'll get a new file with the correct SystemD configuration, for example:
+Run the `tosystemd` command in the directory where you project is located, and if all the necessary data is present in the `package.json` file, the tool will
+
+- generate a .service file which will be saved in the right systemD directory.
+- Then it will force systemD to reload the service files.
+- it will the start your server.
+- finally it will tell systemD to start your server every time the system boots.
+
+# Example .service file
 
 ```
 [Unit]
@@ -31,7 +38,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 WantedBy=multi-user.target
 ```
 
-This App will also output all the commands that you need to run to make the service working.
+Once complete this app will let you know if the process was successful or not.
 
 # The End
 
@@ -42,8 +49,6 @@ If you've enjoyed this article/project, please consider giving it a 🌟 or dona
 - [![Watch on GitHub](https://img.shields.io/github/watchers/davidgatti/toSystemD.svg?style=social)](https://github.com/davidgatti/toSystemD/watchers)
 
 Also check out my [GitHub account](https://github.com/davidgatti), where I have other articles and apps that you might find interesting.
-
----
 
 ## Where to follow
 
