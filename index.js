@@ -92,7 +92,6 @@ check_if_we_are_root(container)
 		console.log("\n");
 		console.log("\tDone!");
 		console.log("\n");
-		console.log("\n");
 
 		//
 		//	->	Exit the app
