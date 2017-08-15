@@ -40,6 +40,14 @@ WantedBy=multi-user.target
 
 Once complete this app will let you know if the process was successful or not.
 
+# Where are the logs?
+
+To see the logs of your servers, just run this command: `sudo tail -f /var/log/syslog`. Each log entry have the name of the project attached to it.
+
+# Benefits of using SystemD
+
+When you work on a project that has many micro-services you run in a situation that you have to start many servers just to work on a single one. Using SystemD I know that all the necessary servers are always running in the background. Another key benefit is that this servers will start automatically when you restart the system. So know you don't have to spend time starting everything all over gain.
+
 # The End
 
 If you've enjoyed this article/project, please consider giving it a 🌟 or donate.
