@@ -1,3 +1,10 @@
+[![downloads][downloads-badge]][npm-stat]
+
+[downloads-badge]: https://img.shields.io/npm/dm/toSystemD.svg?style=flat-square
+[npm-stat]: http://npm-stat.com/charts.html?package=toSystemD&from=2016-04-01
+
+---
+
 # toSystemD
 
 If you work with NodeJS projects and prefer to run them on a Linux box using SystemD as the process manager. Then this small project will help you save a lot of time by creating the `.service` file for you, based on the content of the `package.json` file and the location in which the CLI was executed.
