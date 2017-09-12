@@ -1,7 +1,7 @@
 [![downloads][downloads-badge]][npm-stat]
 
-[downloads-badge]: https://img.shields.io/npm/dm/toSystemD.svg?style=flat-square
-[npm-stat]: http://npm-stat.com/charts.html?package=toSystemD&from=2016-04-01
+[downloads-badge]: https://img.shields.io/npm/dm/tosystemd.svg?style=flat-square
+[npm-stat]: http://npm-stat.com/charts.html?package=tosystemd&from=2016-04-01
 
 ---
 
