@@ -1,25 +1,25 @@
 {
-  "name": "tosystemd",
+  "name": "hotpepper",
   "version": "1.4.4",
-  "description": "😍 A SystemD config generators for NodeJS projects",
+  "description": "🌶 A SystemD config generators for NodeJS projects",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/davidgatti/toSystemD"
+    "url": "https://github.com/0x4447/0x4447-node-cli-hot-pepper"
   },
   "bin": {
-    "tosystemd": "./index.js"
+    "hotpepper": "./index.js"
   },
   "keywords": [
     "systemd",
     "service",
     "cli",
-    "david gatti"
+    "0x4447"
   ],
   "author": {
-    "name": "David Gatti",
-    "email": "npm@gatti.pl",
-    "url": "https://github.com/davidgatti"
+    "name": "0x4447",
+    "email": "hello@0x4447.com",
+    "url": "https://0x4447.com"
   },
   "license": "MIT"
 }
