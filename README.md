@@ -1,11 +1,4 @@
-[![downloads][downloads-badge]][npm-stat]
-
-[downloads-badge]: https://img.shields.io/npm/dm/tosystemd.svg?style=flat-square
-[npm-stat]: http://npm-stat.com/charts.html?package=tosystemd&from=2016-04-01
-
----
-
-# toSystemD
+# 🌶 Hot Pepper
 
 If you work with NodeJS projects and prefer to run them on a Linux box using SystemD as the process manager. Then this small project will help you save a lot of time by creating the `.service` file for you, based on the content of the `package.json` file and the location in which the CLI was executed.
 
@@ -53,7 +46,7 @@ To see the logs of your servers, just run this command: `sudo tail -f /var/log/s
 
 # Benefits of using SystemD
 
-When you work on a project that has many micro-services you run in a situation that you have to start many servers just to work on a single one. Using SystemD I know that all the necessary servers are always running in the background. Another key benefit is that this servers will start automatically when you restart the system. So know you don't have to spend time starting everything all over gain.
+When you work on a project that has many micro-services you run in a situation that you have to start many servers just to work on a single one. Using SystemD you know that all the necessary servers are always running in the background. Another key benefit is that this servers will start automatically when you restart the system. So know you don't have to spend time starting everything all over gain.
 
 # The End
 
