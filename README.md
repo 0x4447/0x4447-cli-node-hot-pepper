@@ -2,6 +2,12 @@
 
 If you work with NodeJS projects and prefer to run them on a Linux box using SystemD as the process manager. Then this small project will help you save a lot of time by creating the `.service` file for you, based on the content of the `package.json` file and the location in which the CLI was executed.
 
+# How to Install
+
+```
+sudo npm install -g @0x4447/hotpepper
+```
+
 # How to run
 
 Run the `tosystemd` command in the directory where you project is located, and if all the necessary data is present in the `package.json` file, the tool will
