@@ -8,7 +8,7 @@ If you work with NodeJS projects and prefer to run them on a Linux box using Sys
 sudo npm install -g @0x4447/hotpepper
 ```
 
-# How to run
+# Usage
 
 Run the `tosystemd` command in the directory where you project is located, and if all the necessary data is present in the `package.json` file, the tool will
 
