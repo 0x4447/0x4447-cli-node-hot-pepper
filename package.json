@@ -28,10 +28,10 @@
     "url": "https://github.com/0x4447/0x4447-cli-node-hotpepper/issues"
   },
   "keywords": [
-    "0x4447"
+    "0x4447",
     "cli",
     "systemd",
-    "service",
+    "service"
   ],
   "dependencies": {
     "mocha": "4.1.0"
