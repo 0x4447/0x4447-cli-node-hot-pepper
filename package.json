@@ -1,9 +1,14 @@
 {
   "name": "@0x4447/hotpepper",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "description": "🌶 A SystemD config generators for NodeJS projects",
+  "homepage": "https://0x4447.com/toolbox",
   "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
+    "build": "npm pack && npm install -g 0x4447-hotpepper-* && rm 0x4447-hotpepper-*",
     "test": "mocha"
   },
   "repository": {
@@ -13,18 +18,21 @@
   "bin": {
     "hotpepper": "./index.js"
   },
-  "keywords": [
-    "systemd",
-    "service",
-    "cli",
-    "0x4447"
-  ],
   "author": {
     "name": "0x4447",
-    "email": "hello@0x4447.com",
+    "email": "hello@0x4447.email",
     "url": "https://0x4447.com"
   },
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/0x4447/0x4447-cli-node-hotpepper/issues"
+  },
+  "keywords": [
+    "0x4447"
+    "cli",
+    "systemd",
+    "service",
+  ],
   "dependencies": {
     "mocha": "4.1.0"
   }
