@@ -8,9 +8,15 @@ If you work with NodeJS projects and prefer to run them on a Linux box using Sys
 sudo npm install -g @0x4447/hotpepper
 ```
 
-# Usage
+# How to Use
 
-Run the `tosystemd` command in the directory where you project is located, and if all the necessary data is present in the `package.json` file, the tool will
+```
+sudo hotpepper
+```
+
+# What to expect
+
+Run the command in the directory where you project is located, and if all the necessary data is present in the `package.json` file, the tool will
 
 - generate a .service file which will be saved in the right systemD directory.
 - Then it will force systemD to reload the service files.
@@ -64,4 +70,4 @@ If you enjoyed this article/project, please consider giving it a 🌟. And check
 
 # For Hire 👨‍💻 👩‍💻
 
-If you'd like us to help you with something, please feel free to say hello@0x4447.com, and share what's on your mind. We'll take a look, and try our best to help you. Or visit our website at: [0x4447.com](https://0x4447.com).
+If you'd like us to help you with something, please feel free to say hello@0x4447.email, and share what's on your mind. We'll take a look, and try our best to help you. Or visit our website at: [0x4447.com](https://0x4447.com).

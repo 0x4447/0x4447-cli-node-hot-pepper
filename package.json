@@ -1,6 +1,6 @@
 {
   "name": "@0x4447/hotpepper",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "description": "🌶 A SystemD config generators for NodeJS projects",
   "homepage": "https://0x4447.com/toolbox",
   "main": "index.js",
