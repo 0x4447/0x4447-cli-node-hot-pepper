@@ -5,16 +5,16 @@ If you work with NodeJS projects and prefer to run them on a Linux box using Sys
 # How to Install
 
 ```
-sudo npm install -g @0x4447/hotpepper
+] sudo npm install -g @0x4447/hotpepper
 ```
 
 # How to Use
 
 ```
-sudo hotpepper
+] sudo hotpepper
 ```
 
-# What to expect
+# What to Expect
 
 Run the command in the directory where you project is located, and if all the necessary data is present in the `package.json` file, the tool will
 
@@ -60,14 +60,10 @@ To see the logs of your servers, just run this command: `sudo tail -f /var/log/s
 
 When you work on a project that has many micro-services you run in a situation that you have to start many servers just to work on a single one. Using SystemD you know that all the necessary servers are always running in the background. Another key benefit is that this servers will start automatically when you restart the system. So know you don't have to spend time starting everything all over gain.
 
-# Why This Name?
-
-Why not? We had to call it something. And once you see it, you're not going to forget it. 😃
-
 # The End
 
 If you enjoyed this article/project, please consider giving it a 🌟. And check out our [0x4447 GitHub account](https://github.com/0x4447), where we have additional articles and tools that you might find interesting.
 
 # For Hire 👨‍💻 👩‍💻
 
-If you'd like us to help you with something, please feel free to say hello@0x4447.email, and share what's on your mind. We'll take a look, and try our best to help you. Or visit our website at: [0x4447.com](https://0x4447.com).
+If you'd like us to help you with something, please feel free to say [hello@0x4447.email](hello@0x4447.email), and share what's on your mind. We'll take a look, and try our best to help you. Or visit our website at: [0x4447.com](https://0x4447.com).
