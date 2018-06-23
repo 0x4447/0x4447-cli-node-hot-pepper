@@ -59,9 +59,10 @@ let container = {};
 check_if_we_are_root(container)
 	.then(function(container){
 
-		//
-		//	1.	Make sure systemD is present
-		//
+		return check_if_dot_env_is_present(container);
+
+	}).then(function(container){
+
 		return check_if_systemd_is_present(container);
 
 	}).then(function(container){
@@ -163,6 +164,37 @@ function check_if_we_are_root(container)
 		if(username != "root")
 		{
 			return reject(new Error("Run the command as root"));
+		}
+
+		//
+		//	-> Move to the next chain
+		//
+		return resolve(container);
+
+	});
+}
+
+//
+//	Make sure we have the .env file in the project. You can use Cucumber to
+//	create one for you automatically. Follow this URL:
+//
+//		https://github.com/0x4447/0x4447-cli-node-cucumber
+//
+function check_if_dot_env_is_present(container)
+{
+	return new Promise(function(resolve, reject) {
+
+		//
+		//	1.	Check if the SystemD directory exists
+		//
+		let is_present = fs.existsSync(".env");
+
+		//
+		//	2.	Warn the user that the directory is not present
+		//
+		if(!is_present)
+		{
+			return reject(new Error(".env file is not present."));
 		}
 
 		//
