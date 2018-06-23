@@ -2,7 +2,50 @@
 
 let fs = require('fs');
 let os = require('os');
+let npm = require('./package.json');
 let exec = require('child_process').exec;
+let program = require('commander');
+
+//   _____   ______   _______   _______   _____   _   _    _____    _____
+//  / ____| |  ____| |__   __| |__   __| |_   _| | \ | |  / ____|  / ____|
+// | (___   | |__       | |       | |      | |   |  \| | | |  __  | (___
+//  \___ \  |  __|      | |       | |      | |   | . ` | | | |_ |  \___ \
+//  ____) | | |____     | |       | |     _| |_  | |\  | | |__| |  ____) |
+// |_____/  |______|    |_|       |_|    |_____| |_| \_|  \_____| |_____/
+//
+
+//
+//	The CLI options for this app.
+//
+program
+	.version(npm.version)
+	.parse(process.argv);
+
+//
+//	React when the user needs help
+//
+program.on('--help', function() {
+
+	//
+	//	Just add an empty line at the end of the help to make the text more
+	//	clear to the user
+	//
+	console.log("");
+
+});
+
+//
+//	Pass the user input to the commander module
+//
+program.parse(process.argv);
+
+//	 __  __              _____   _   _
+//	|  \/  |     /\     |_   _| | \ | |
+//	| \  / |    /  \      | |   |  \| |
+//	| |\/| |   / /\ \     | |   | . ` |
+//	| |  | |  / ____ \   _| |_  | |\  |
+//	|_|  |_| /_/    \_\ |_____| |_| \_|
+//
 
 //
 //	1. 	Create a container that will hold all the data for the chained
@@ -23,65 +66,38 @@ check_if_we_are_root(container)
 
 	}).then(function(container){
 
-		//
-		//	1.	Make sure the package.json is present before we try to load it
-		//
 		return check_if_package_is_present(container);
 
 	}).then(function(container){
 
-		//
-		//	1.	Gather all the necessary data from the project
-		//
 		return read_necessary_data(container);
 
 	}).then(function(container){
 
-		//
-		//	1.	Check if the package.json had all the data
-		//
 		return check_if_something_is_missing(container);
 
 	}).then(function(container){
 
-		//
-		//	1.	Get data that we need from the system
-		//
 		return get_os_settings(container);
 
 	}).then(function(container){
 
-		//
-		//	1.	Generate the config file
-		//
 		return create_the_service_file(container);
 
 	}).then(function(container){
 
-		//
-		//	1.	Save the file
-		//
 		return save_the_file(container);
 
 	}).then(function(container){
 
-		//
-		//	1.	Tell SystemD to reload all the service files
-		//
 		return reaload_systemd_daemon(container);
 
 	}).then(function(container){
 
-		//
-		//	1.	Start the new service
-		//
 		return start_the_new_service(container);
 
 	}).then(function(container){
 
-		//
-		//	1.	Tell SystemD to start the new service at boot
-		//
 		return enable_autostart(container);
 
 	}).then(function(container){
@@ -104,8 +120,7 @@ check_if_we_are_root(container)
 		//	1.	Show the error message
 		//
 		console.log("\n");
-		console.log("\t" + error.message);
-		console.log("\n");
+		console.log(error.message);
 		console.log("\n");
 
 		//
@@ -434,7 +449,7 @@ function save_the_file(container)
 	return new Promise(function(resolve, reject) {
 
 		//
-		//	1.
+		//	1.	Create the path for the config file
 		//
 		let file = "/etc/systemd/system/"
 				   + container.service_data.name
@@ -471,12 +486,12 @@ function reaload_systemd_daemon(container)
 	return new Promise(function(resolve, reject) {
 
 		//
-		//	1.
+		//	1.	Create the command to tell SystemD to reload the config files.
 		//
 		let cmd = 'systemctl daemon-reload';
 
 		//
-		//	2.	Execute the command that will restart Nginx server
+		//	2.	Execute the command
 		//
 		exec(cmd, function(error, stdout, stderr) {
 
@@ -506,12 +521,13 @@ function start_the_new_service(container)
 	return new Promise(function(resolve, reject) {
 
 		//
-		//	1.
+		//	1.	Create the command that will start the new services that
+		//		 we made.
 		//
 		let cmd = 'systemctl start ' + container.service_data.name;
 
 		//
-		//	2.	Execute the command that will restart Nginx server
+		//	2.	Execute the command.
 		//
 		exec(cmd, function(error, stdout, stderr) {
 
@@ -541,12 +557,12 @@ function enable_autostart(container)
 	return new Promise(function(resolve, reject) {
 
 		//
-		//	1.
+		//	1.	Create the command that will enable autostart.
 		//
 		let cmd = 'systemctl enable ' + container.service_data.name;
 
 		//
-		//	2.	Execute the command that will restart Nginx server
+		//	2.	Execute the command.
 		//
 		exec(cmd, function(error, stdout, stderr) {
 
