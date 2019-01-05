@@ -14,6 +14,12 @@ If you work with NodeJS projects and prefer to run them on a Linux box using Sys
 ] sudo hotpepper
 ```
 
+# Where to get Help
+
+```
+] hotpepper -h
+```
+
 # What to Expect
 
 Run the command in the directory where you project is located, and if all the necessary data is present in the `package.json` file, the tool will
