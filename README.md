@@ -1,24 +1,24 @@
 # 🌶 Hot Pepper
 
-We created this tool to quickly add a NodeJS server to SystemD by creating a custom configuration file based on the content of the `package.json` file and the location in which the CLI was executed.
+We created Hot Pepper to quickly add a NodeJS server to SystemD by setting up a custom configuration file based on the content of the `package.json` file and the location in which the CLI was executed.
 
-We prefer to use SystemD because it is build in to Debian, it takes care of the life time of the process, and it uses less resources than other solutions on the market. Thus you get more CPU and RAM for your app. Not to mention that all the server will be set to auto start, this way when you start your linux box everything is there and waiting.
+We prefer to use SystemD, because it's built into Debian, takes care of the lifetime of the process, and uses fewer resources than other solutions on today's market. Thus, you get more CPU and RAM for your app. Not to mention that the entire server will be set to Auto Start. In this way, everything's there and waiting when you start your Linux box.
 
-Plus you'll save time by not creating a `.service` by hand for all the dozens of micro services a project might have.
+In addition, you'll save time because you won't be hand-creating a `.service` for the dozens of micro services within a given project.
 
-# How to Install
+# How to install
 
 ```
 ] sudo npm install -g @0x4447/hotpepper
 ```
 
-# How to Use
+# How to use
 
 ```
 ] sudo hotpepper
 ```
 
-# Where to get Help
+# Where to get help
 
 ```
 ] hotpepper -h
@@ -26,14 +26,14 @@ Plus you'll save time by not creating a `.service` by hand for all the dozens of
 
 # What to Expect
 
-Run the command in the directory where you project is located, and if all the necessary data is present in the `package.json` file, the tool will
+Run the command in the directory that contains your project. If all necessary data is present in the `package.json` file, the tool...
 
-- generate a `.service` file which will be saved in the right SystemD directory.
-- Then the app will force SystemD to reload the service files.
-- it will then start your server.
-- finally it will tell SystemD to start your server every time the system boots.
+- Generates a `.service` file saved in the correct SystemD directory
+- The app forces SystemD to reload the service files
+- The app starts your server
+- The app tells SystemD to start your server every time the system boots
 
-# Example of a .service file
+# Sample of a .service file:
 
 ```
 [Unit]
@@ -60,15 +60,15 @@ ExecReload=/bin/kill -HUP $MAINPID
 WantedBy=multi-user.target
 ```
 
-Once complete this app will let you know if the process was successful or not.
+Once complete, the app lets you know whether the process was successful.
 
 # Where are the logs?
 
-To see the logs of your servers, just run this command: `sudo tail -f /var/log/syslog`. Each log entry have the name of the project attached to it.
+Run this command to view the server logs: `sudo tail -f /var/log/syslog`. Each log entry has the name of the project attached.
 
 # The End
 
-If you enjoyed this project, please consider giving it a 🌟. And check out our [0x4447 GitHub account](https://github.com/0x4447), where you'll find additional resources you might find useful or interesting.
+If you enjoyed this project, please consider giving it a 🌟. And check out our [0x4447 GitHub account](https://github.com/0x4447), where there are additional resources you might find useful or interesting.
 
 ## Sponsor 🎊
 
