@@ -68,7 +68,7 @@ Run this command to view the server logs: `sudo tail -f /var/log/syslog`. Each l
 
 # The End
 
-If you enjoyed this project, please consider giving it a 🌟. And check out our [0x4447 GitHub account](https://github.com/0x4447), where there are additional resources you might find useful or interesting.
+If you enjoyed this project, please consider giving it a 🌟. And check out our [0x4447 GitHub account](https://github.com/0x4447), which contains additional resources you might find useful or interesting.
 
 ## Sponsor 🎊
 
