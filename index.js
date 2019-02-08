@@ -18,7 +18,8 @@ let program = require('commander');
 //	The CLI options for this app.
 //
 program
-	.version(npm.version);
+	.version(npm.version)
+	.option('-s, --source [type]', 	'path to the source folder');
 
 //
 //	React when the user needs help
@@ -47,10 +48,17 @@ program.parse(process.argv);
 //
 
 //
+//	Set the work location of the CLI.
+//
+let location = process.cwd() + "/" + program.source;
+
+//
 //	1. 	Create a container that will hold all the data for the chained
 //		promises.
 //
-let container = {};
+let container = {
+	location: location
+};
 
 //
 //	2.	Since we need root privileges, we need to check for that
@@ -186,7 +194,7 @@ function check_if_dot_env_is_present(container)
 		//
 		//	1.	Check if the SystemD directory exists
 		//
-		let is_present = fs.existsSync(".env");
+		let is_present = fs.existsSync(container.location + '/.env');
 
 		//
 		//	2.	Warn the user that the directory is not present
@@ -215,7 +223,7 @@ function check_if_systemd_is_present(container)
 		//
 		//	1.	Check if the SystemD directory exists
 		//
-		let is_present = fs.existsSync("/etc/systemd/system");
+		let is_present = fs.existsSync('/etc/systemd/system');
 
 		//
 		//	2.	Warn the user that the directory is not present
@@ -243,7 +251,7 @@ function check_if_package_is_present(container)
 		//
 		//	1.	Check if the package.json file exists
 		//
-		let is_present = fs.existsSync("package.json");
+		let is_present = fs.existsSync(container.location + '/package.json');
 
 		//
 		//	2.	Warn the user that the package.json is missing
@@ -272,7 +280,7 @@ function read_necessary_data(container)
 		//
 		//	Open the app.json file.
 		//
-		fs.readFile('package.json', 'utf8', function(error, data) {
+		fs.readFile(container.location + '/package.json', 'utf8', function(error, data) {
 
 			//
 			//	1.	Display Error if any
