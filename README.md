@@ -2,7 +2,7 @@
 
 We created Hot Pepper to quickly add a NodeJS server to SystemD by setting up a custom configuration file based on the content of the `package.json` file and the location in which the CLI was executed.
 
-We prefer to use SystemD, because it's built into Debian, takes care of the lifetime of the process, and uses fewer resources than other solutions on today's market. Thus, you get more CPU and RAM for your app. Not to mention that the entire server will be set to Auto Start. In this way, everything's there and waiting when you start your Linux box.
+We prefer to use SystemD, because it's built into Debian, takes care of the lifetime of the process, and uses fewer resources than other solutions on today's market. Thus, you get more CPU and RAM for your app. Not to mention that the entire server will be set to Auto Start. This way, all the servers added to SystemD are always ready when you start your server/computer.
 
 In addition, you'll save time because you won't be hand-creating a `.service` for the dozens of micro services within a given project.
 
@@ -15,7 +15,7 @@ In addition, you'll save time because you won't be hand-creating a `.service` fo
 # How to use
 
 ```
-] sudo hotpepper
+] sudo hotpepper -s .
 ```
 
 # Where to get help
